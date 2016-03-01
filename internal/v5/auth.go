@@ -181,7 +181,8 @@ func (h *ReqHandler) newDischargeRequiredError(m *macaroon.Macaroon, verr error,
 	} else {
 		cookiePath = p
 	}
-	dischargeErr := httpbakery.NewDischargeRequiredErrorForRequest(m, cookiePath, verr, req)
+	logger.Errorf("cookiePath=%q requestURI=%q", cookiePath, req.RequestURI)
+	dischargeErr := httpbakery.NewDischargeRequiredErrorForRequest(m, "", verr, req)
 	dischargeErr.(*httpbakery.Error).Info.CookieNameSuffix = "authn"
 	return dischargeErr
 }
